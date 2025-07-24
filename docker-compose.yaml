@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./build/api/Dockerfile
+      target: development
+    environment:
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./internal:/app/internal
+      - ./cmd:/app/cmd
+  client:
+    build:
+      context: .
+      dockerfile: ./build/client/Dockerfile
+      target: development
+    environment:
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
