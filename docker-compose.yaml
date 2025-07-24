@@ -1,8 +1,8 @@
 services:
-  api:
+  server:
     build:
       context: .
-      dockerfile: ./build/api/Dockerfile
+      dockerfile: ./build/server/Dockerfile
       target: development
     environment:
       PORT: 8080
