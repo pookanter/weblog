@@ -6,10 +6,9 @@ RUN go install github.com/air-verse/air@latest
 RUN apk update
 
 COPY cmd ./
-COPY api ./
-COPY pkg ./
+COPY internal ./
 COPY go.mod ./
-COPY build/api ./
+COPY docker/server/.air.toml ./
 
 RUN go mod download
 

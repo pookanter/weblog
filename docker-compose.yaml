@@ -1,8 +1,19 @@
 services:
+  database:
+    build:
+      context: .
+      dockerfile: ./docker/database/Dockerfile
+    environment:
+      POSTGRES_USER: weblog
+      POSTGRES_PASSWORD: weblogpass
+      POSTGRES_DB: weblogdb
+    ports:
+      - "5432:5432"
+
   server:
     build:
       context: .
-      dockerfile: ./build/server/Dockerfile
+      dockerfile: ./docker/server/Dockerfile
       target: development
     environment:
       PORT: 8080
@@ -14,7 +25,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: ./build/client/Dockerfile
+      dockerfile: ./docker/client/Dockerfile
       target: development
     environment:
       PORT: 3000
