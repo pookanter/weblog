@@ -4,19 +4,23 @@ services:
       context: .
       dockerfile: ./docker/database/Dockerfile
     environment:
-      POSTGRES_USER: weblog
-      POSTGRES_PASSWORD: weblogpass
-      POSTGRES_DB: weblogdb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: randomrootpassword
+      POSTGRES_DB: weblog_dev
     ports:
       - "5432:5432"
-
   server:
     build:
       context: .
       dockerfile: ./docker/server/Dockerfile
       target: development
     environment:
+      HOST: 0.0.0.0
       PORT: 8080
+      DB_HOST: postgres
+      DB_NAME: weblog_dev
+      DB_USER: root
+      DB_PASSWORD: randomrootpassword
     ports:
       - "8080:8080"
     volumes:
@@ -28,7 +32,9 @@ services:
       dockerfile: ./docker/client/Dockerfile
       target: development
     environment:
+      HOST: 0.0.0.0
       PORT: 3000
+      API_URL: http://server:8080
     ports:
       - "3000:3000"
     volumes:
